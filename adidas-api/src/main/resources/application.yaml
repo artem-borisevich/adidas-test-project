@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: subscription
+        uri: http://localhost:8081/subscription
+        predicates:
+        - Path=/subscription
+        filters:
+          - name: Hystrix
+            args:
+              name: fallbackcmd
+              fallbackUri: forward:/fallback
