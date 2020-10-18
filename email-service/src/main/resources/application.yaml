@@ -1,0 +1,18 @@
+gmail:
+  application_name: Adidas email service
+  user_id: me
+  tokens_directory_path: tokens
+  credentials_file_path: /credentials.json
+  from: abs.test.adidas@gmail.com
+  subject: Subscription email!
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: adidas-email-service
+      auto-offset-reset: earliest
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
+      properties:
+        spring.json.value.default.type: com.adidas.email.subscription.Subscription
