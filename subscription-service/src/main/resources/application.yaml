@@ -4,11 +4,13 @@ spring:
   liquibase:
     change-log: classpath:liquibase-changeLog.xml
   datasource:
-    url: jdbc:mysql://localhost:3306/adidas?createDatabaseIfNotExist=true
+    url: jdbc:mysql://database:3306/adidas?createDatabaseIfNotExist=true
     username: root
     password: root
+    hikari:
+      connection-timeout: 5000
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.LongSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

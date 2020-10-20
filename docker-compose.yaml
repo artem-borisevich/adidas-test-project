@@ -1,0 +1,51 @@
+version: "3.7"
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_LISTENERS: OUTSIDE://kafka:9092,INTERNAL://localhost:9093
+      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://169.132.90.14:9092,INTERNAL://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: OUTSIDE:PLAINTEXT, INTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LOG_RETENTION_CHECK_INTERVAL_MS: 50000
+      KAFKA_LOG_RETENTION_MS: 50000
+      KAFKA_CREATE_TOPICS: "subscription:2:1"
+  database:
+    container_name: mysql-db
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - "3306:3306"
+  subscription-service:
+    image: subscription
+    restart: on-failure
+    build:
+      context: ./subscription-service/
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+      - kafka
+  api-gateway:
+    image: api
+    build:
+      context: ./adidas-api/
+      dockerfile: Dockerfile
+    depends_on:
+      - subscription-service
+    ports:
+      - "8080:8080"
+  email-service:
+    image: email
+    build:
+      context: ./email-service/
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka

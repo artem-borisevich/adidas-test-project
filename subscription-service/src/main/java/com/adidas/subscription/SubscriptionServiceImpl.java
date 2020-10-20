@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class SubscriptionServiceImpl implements SubscriptionService {
+class SubscriptionServiceImpl implements SubscriptionService {
 
     private final Logger logger = LoggerFactory.getLogger(SubscriptionServiceImpl.class);
 

@@ -14,7 +14,7 @@ public class SubscriptionProducer {
     @Value("${service.email.topic}")
     private String topic;
 
-    private KafkaTemplate<Long, Subscription> kafkaTemplate;
+    private final KafkaTemplate<Long, Subscription> kafkaTemplate;
 
     public SubscriptionProducer(KafkaTemplate<Long, Subscription> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;

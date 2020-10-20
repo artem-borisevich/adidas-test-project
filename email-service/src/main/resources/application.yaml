@@ -1,10 +1,7 @@
-gmail:
-  application_name: Adidas email service
-  user_id: me
-  tokens_directory_path: tokens
-  credentials_file_path: /credentials.json
+email:
   from: abs.test.adidas@gmail.com
   subject: Subscription email!
+  password: af5db8d3d72da576a5a758dfe4311d14
 
 spring:
   kafka:
@@ -16,3 +13,12 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer
       properties:
         spring.json.value.default.type: com.adidas.email.subscription.Subscription
+
+gmail:
+  mail:
+    smtp:
+      host: smtp.gmail.com
+      socketFactory.port: 465
+      socketFactory.class: javax.net.ssl.SSLSocketFactory
+      auth: true
+      port: 465
