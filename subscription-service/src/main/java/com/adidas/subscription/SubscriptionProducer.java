@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,6 +21,7 @@ public class SubscriptionProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
+    @Async("threadPoolTaskExecutor")
     public void produce(Subscription subscription) {
         kafkaTemplate.send(topic, subscription.getNewsletterId(), subscription);
         logger.info("Produced message: {}", subscription);

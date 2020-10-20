@@ -5,8 +5,6 @@ Swagger url: http://localhost:8080/swagger-ui.html
 _Commands:_
 - docker-compose up - _run all applications_
 
-NOTE: Please, change OUTSIDE ip address for property KAFKA_ADVERTISED_LISTENERS in the docker config file to yours ip address
-
 # adidas-api-project
 Public service opened for end user.
 

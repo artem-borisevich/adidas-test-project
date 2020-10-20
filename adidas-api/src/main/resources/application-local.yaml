@@ -3,11 +3,11 @@ spring:
     gateway:
       routes:
       - id: swagger
-        uri: http://subscription-service:8081/swagger-ui.html
+        uri: http://localhost:8081/swagger-ui.html
         predicates:
         - Path=/swagger-ui.html
       - id: subscription
-        uri: http://subscription-service:8081/subscription
+        uri: http://localhost:8081/subscription
         predicates:
         - Path=/subscription
         filters:

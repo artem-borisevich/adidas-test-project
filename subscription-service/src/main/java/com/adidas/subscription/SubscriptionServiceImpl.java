@@ -24,8 +24,8 @@ class SubscriptionServiceImpl implements SubscriptionService {
     public Subscription save(Subscription subscription) {
         subscription.setCreatedDate(LocalDateTime.now());
         Subscription createdSubscription = subscriptionRepository.save(subscription);
-        logger.info("New Subscription has been created: {}", createdSubscription);
         subscriptionProducer.produce(createdSubscription);
+        logger.info("New Subscription has been created: {}", createdSubscription);
         return createdSubscription;
     }
 }
