@@ -2,11 +2,13 @@ spring:
   cloud:
     gateway:
       routes:
-      - id: swagger
-        uri: http://subscription-service:8081/swagger-ui.html
+      - id: openapi
+        uri: http://subscription-service:8081
         predicates:
-        - Path=/swagger-ui.html
-      - id: subscription
+          - Path=/v3/api-docs/**
+        filters:
+          - RewritePath=/v3/api-docs/subscription, /v3/api-docs
+      - id: subscription-service
         uri: http://subscription-service:8081/subscription
         predicates:
         - Path=/subscription
